@@ -1,0 +1,361 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #0d0d0d; /* Fond sombre Rockstar-like */
+    color: #e0e0e0; /* Texte clair */
+    overflow-x: hidden; /* Empêche le scroll horizontal */
+}
+
+/* Barre de navigation */
+.header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #1e1e1e; /* Fond sombre pour l'en-tête */
+    padding: 10px 20px;
+    border-bottom: 2px solid #333;
+    position: relative;
+}
+
+/* Barre de recherche */
+.header .search-bar {
+    flex: 1;
+    margin-right: 20px;
+    position: relative;
+}
+
+.header input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #333;
+    border-radius: 4px;
+    background-color: #121212;
+    color: #e0e0e0;
+    font-size: 1em;
+}
+
+/* Menu déroulant pour les filtres */
+.header .dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.header .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #1e1e1e;
+    min-width: 200px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    border: 1px solid #333;
+    border-radius: 4px;
+}
+
+.header .dropdown-content select {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background-color: #121212;
+    color: #e0e0e0;
+    font-size: 1em;
+}
+
+.header .dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Grille des véhicules */
+.vehicle-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Cartes responsives */
+    gap: 20px;
+    padding: 20px;
+    opacity: 0; /* Rendre invisible */
+    visibility: hidden; /* Masquer visuellement */
+    transition: opacity 0.3s ease, visibility 0.3s ease; /* Transition fluide */
+}
+
+.vehicle-grid.loaded {
+    opacity: 1; /* Rendre visible */
+    visibility: visible; /* Afficher */
+}
+
+/* Cartes des véhicules */
+.vehicle-card {
+    background-color: #1e1e1e; /* Fond des cartes */
+    border: 1px solid #333; /* Bordure sombre */
+    border-radius: 8px;
+    overflow: hidden;
+    text-align: left; /* Texte aligné à gauche */
+    padding: 10px;
+    transition: none; /* Suppression de l'effet de hover */
+}
+
+.vehicle-card:hover {
+    transform: none; /* Suppression de l'effet de zoom */
+    box-shadow: none; /* Suppression de l'ombre */
+}
+
+.vehicle-card h3 {
+    margin: 10px 0;
+    font-size: 1.2em;
+    color: #ffffff; /* Titre en blanc */
+}
+
+.vehicle-card p {
+    color: #b0b0b0; /* Texte secondaire */
+    font-size: 0.9em;
+    margin: 0 10px 10px;
+}
+
+.vehicle-type {
+    font-weight: bold;
+    color: #1e90ff; /* Bleu clair */
+    margin: 5px 0;
+}
+
+.vehicle-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.tag {
+    background-color: #333;
+    color: #e0e0e0;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.8em;
+}
+
+/* Carrousel d'images */
+.image-carousel {
+    display: flex;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 200px; /* Ajustez la hauteur selon vos besoins */
+}
+
+.image-carousel img {
+    display: none;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.image-carousel img.active {
+    display: block;
+}
+
+/* Boutons de navigation */
+.carousel-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0); /* Fond semi-transparent */
+    color: #fff;
+    border: none;
+    padding: 10px 15px; /* Ajustez la taille du bouton */
+    cursor: pointer;
+    z-index: 10;
+    font-size: 1.5em; /* Taille de l'icône */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: none; /* Supprime toute ombre */
+    border-radius: 0; /* Pas de style circulaire */
+}
+
+.carousel-button:hover {
+    background-color: rgba(0, 0, 0, 0); /* Fond plus sombre au survol */
+    transform: translateY(-50%) scale(1.1); /* Légère mise en avant */
+}
+
+.carousel-button.prev {
+    left: 1px; /* Position à gauche */
+}
+
+.carousel-button.next {
+    right: 1px; /* Position à droite */
+}
+
+/* Bouton Étoile */
+.star-button {
+    background-color: transparent;
+    border: none;
+    color: #e0e0e0;
+    font-size: 1.5em;
+    cursor: pointer;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.3s ease;
+}
+
+.star-button:hover {
+    color: #ffde25; /* Couleur dorée au survol */
+}
+
+.star-button.active:hover {
+    color: #ccb849; /* Couleur dorée au survol */
+}
+
+.star-button.active {
+    color: #ffd900; /* Couleur dorée pour les favoris */
+    animation: favorite-added 0.5s ease-in-out;
+}
+
+/* Suggestions de recherche */
+.suggestions {
+    position: absolute;
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+    border-radius: 4px;
+    max-height: 150px;
+    overflow-y: auto;
+    z-index: 1000;
+    width: 100%;
+}
+
+.suggestions li {
+    padding: 10px;
+    color: #e0e0e0;
+    cursor: pointer;
+}
+
+.suggestions li:hover {
+    background-color: #333;
+}
+
+/* Animation pour l'ajout aux favoris */
+@keyframes favorite-added {
+    0% {
+        transform: scale(1);
+        background-color: transparent;
+    }
+    50% {
+        transform: scale(1.2);
+        color: rgba(255, 215, 0, 0.3); /* Couleur dorée */
+    }
+    100% {
+        transform: scale(1);
+        background-color: transparent;
+    }
+}
+
+/* Section des favoris */
+.favorites-section {
+    background-color: #1e1e1e;
+    padding: 20px;
+    border-top: 2px solid #333;
+}
+
+.favorites-section h2 {
+    color: #e0e0e0;
+    margin-bottom: 10px;
+}
+
+.favorites-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+/* Bouton pour ouvrir le menu des favoris */
+.favorites-toggle {
+    background-color: #1e90ff; /* Bleu clair */
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 1em;
+    margin-left: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.favorites-toggle:hover {
+    background-color: #1c7ed6; /* Bleu plus foncé au survol */
+}
+
+/* Menu des favoris */
+.favorites-menu {
+    display: none; /* Masqué par défaut */
+    background-color: #1e1e1e;
+    padding: 20px;
+    border-top: 2px solid #333;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 300px;
+    height: 100%;
+    overflow-y: auto;
+    z-index: 1000;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+    opacity: 0; /* Rendre invisible */
+    visibility: hidden; /* Masquer visuellement */
+    transition: opacity 0.3s ease, visibility 0.3s ease; /* Transition fluide */
+}
+
+.favorites-menu.loaded {
+    opacity: 1; /* Rendre visible */
+    visibility: visible; /* Afficher */
+}
+
+.favorites-menu h2 {
+    color: #e0e0e0;
+    margin-bottom: 10px;
+}
+
+.favorites-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+
+/* Bouton Like */
+.like-button {
+    background-color: transparent;
+    border: none;
+    color: #ffffff; /* Bleu clair */
+    font-size: 1.5em;
+    cursor: pointer;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.3s ease;
+}
+
+.like-button:hover {
+    color: #81c1f9; /* Bleu plus foncé au survol */
+}
+
+.like-button.active {
+    color: #1e90ff; /* Bleu actif */
+}
+
+/* Bouton pour fermer le menu des favoris */
+.favorites-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    font-size: 1.5em;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.favorites-close:hover {
+    color: #ff4d4d; /* Rouge clair au survol */
+}

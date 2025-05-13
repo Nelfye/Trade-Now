@@ -1,0 +1,36 @@
+[
+    {
+        "name": "issi enticipation",
+        "description": "véhicule de ventes 1 800 000$",
+        "tags": [
+            "roue f1",
+            "ventes"
+        ],
+        "type": "voiture",
+        "image": {
+            "1": "../images/issi_enticipation1.png",
+            "2": "../images/issi_enticipation2.png",
+            "3": "../images/issi_enticipation3.png",
+            "4": "../images/issi_enticipation4.png",
+            "5": "../images/issi_enticipation5.png",
+            "6": "../images/issi_enticipation6.png"
+        }
+    },
+
+    {
+        "name": "annis uros",
+        "description": "véhicule de drift",
+        "tags": [
+            "roue f1"
+        ],
+        "type": "voiture",
+        "image": {
+            "1": "../images/annis_uros1.png",
+            "2": "../images/annis_uros2.png",
+            "3": "../images/annis_uros3.png",
+            "4": "../images/annis_uros4.png",
+            "5": "../images/annis_uros5.png",
+            "6": "../images/annis_uros6.png"
+        }
+    }
+]
