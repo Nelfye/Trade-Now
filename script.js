@@ -27,14 +27,44 @@ function displayVehicles(filteredVehicles) {
         imageContainer.className = 'image-carousel';
 
         const images = Object.values(vehicle.image);
+        let currentIndex = 0;
+
+        // Ajouter les images au carrousel
         images.forEach((imageSrc, index) => {
             const img = document.createElement('img');
             img.src = imageSrc;
             img.alt = vehicle.name;
-            img.className = index === 0 ? 'active' : '';
+            img.className = index === 0 ? 'active' : 'hidden'; // Afficher uniquement la première image
             imageContainer.appendChild(img);
         });
 
+        // Ajouter les boutons de navigation
+        const prevButton = document.createElement('button');
+        prevButton.className = 'carousel-button prev';
+        prevButton.innerHTML = '<i class="fa-solid fa-arrow-left"></i>'; // Flèche gauche
+        prevButton.addEventListener('click', () => {
+            const imgs = imageContainer.querySelectorAll('img');
+            imgs[currentIndex].classList.remove('active');
+            imgs[currentIndex].classList.add('hidden');
+            currentIndex = (currentIndex - 1 + imgs.length) % imgs.length; // Navigation circulaire
+            imgs[currentIndex].classList.remove('hidden');
+            imgs[currentIndex].classList.add('active');
+        });
+
+        const nextButton = document.createElement('button');
+        nextButton.className = 'carousel-button next';
+        nextButton.innerHTML = '<i class="fa-solid fa-arrow-right"></i>'; // Flèche droite
+        nextButton.addEventListener('click', () => {
+            const imgs = imageContainer.querySelectorAll('img');
+            imgs[currentIndex].classList.remove('active');
+            imgs[currentIndex].classList.add('hidden');
+            currentIndex = (currentIndex + 1) % imgs.length; // Navigation circulaire
+            imgs[currentIndex].classList.remove('hidden');
+            imgs[currentIndex].classList.add('active');
+        });
+
+        imageContainer.appendChild(prevButton);
+        imageContainer.appendChild(nextButton);
         card.appendChild(imageContainer);
 
         const title = document.createElement('h3');
