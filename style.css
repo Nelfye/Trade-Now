@@ -134,23 +134,31 @@ body {
 
 /* Carrousel d'images */
 .image-carousel {
-    display: flex;
     position: relative;
-    overflow: hidden;
     width: 100%;
     height: 200px; /* Ajustez la hauteur selon vos besoins */
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .image-carousel img {
-    display: none;
+    position: absolute;
     width: 100%;
-    height: auto;
+    height: 100%;
     object-fit: cover;
-    border-radius: 8px;
+    transition: opacity 0.3s ease;
+}
+
+.image-carousel img.hidden {
+    opacity: 0;
+    visibility: hidden;
 }
 
 .image-carousel img.active {
-    display: block;
+    opacity: 1;
+    visibility: visible;
 }
 
 /* Boutons de navigation */
@@ -161,56 +169,28 @@ body {
     background-color: rgba(0, 0, 0, 0); /* Fond semi-transparent */
     color: #fff;
     border: none;
-    padding: 10px 15px; /* Ajustez la taille du bouton */
+    padding: 10px;
     cursor: pointer;
     z-index: 10;
-    font-size: 1.5em; /* Taille de l'icône */
+    border-radius: 50%;
+    font-size: 1.2em;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    box-shadow: none; /* Supprime toute ombre */
-    border-radius: 0; /* Pas de style circulaire */
+    transition: background-color 0.3s ease;
 }
 
 .carousel-button:hover {
-    background-color: rgba(0, 0, 0, 0); /* Fond plus sombre au survol */
-    transform: translateY(-50%) scale(1.1); /* Légère mise en avant */
+    color: rgb(198, 198, 198); /* Fond plus sombre au survol */
+    
 }
 
 .carousel-button.prev {
-    left: 1px; /* Position à gauche */
+    left: 10px; /* Position à gauche */
 }
 
 .carousel-button.next {
-    right: 1px; /* Position à droite */
-}
-
-/* Bouton Étoile */
-.star-button {
-    background-color: transparent;
-    border: none;
-    color: #e0e0e0;
-    font-size: 1.5em;
-    cursor: pointer;
-    margin-left: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: color 0.3s ease;
-}
-
-.star-button:hover {
-    color: #ffde25; /* Couleur dorée au survol */
-}
-
-.star-button.active:hover {
-    color: #ccb849; /* Couleur dorée au survol */
-}
-
-.star-button.active {
-    color: #ffd900; /* Couleur dorée pour les favoris */
-    animation: favorite-added 0.5s ease-in-out;
+    right: 10px; /* Position à droite */
 }
 
 /* Suggestions de recherche */
